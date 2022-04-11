@@ -1,4 +1,5 @@
-import { NoteType } from "../types/types";
+import { NoteType, IAction } from "../types/types";
+
 
 const DELETE = "DELETE";
 const ARCHIV = "ARCHIV";
@@ -7,39 +8,33 @@ const ADD_NOTE = "ADD_NOTE";
 const EDIT_NOTE = "EDIT_NOTE";
 
 let initialState = {
-    title: { name: "Name", created: "Created", category: "Category", content: "Content", dates: "Dates" },
+    title: { contnentName: "Name", created: "Created", category: "Category", content: "Content", dates: "Dates" },
     body: [
       {
-        id: "1", name: "Shoping List1", category: "Task", created: "April 20, 2021",
+        id: "1", contnentName: "Shoping List1", category: "Task", created: "April 20, 2021",
         content: "3.5/2022", dates: ""
       },
       {
-        id: "2", name: "Shoping List2", created: "April 20, 2021", category: "Random Thought",
+        id: "2", contnentName: "Shoping List2", created: "April 20, 2021", category: "Random Thought",
         content: "I am gonna have a dentist appointment on the 3/5/2021, I moved it from 5/5/2021",
         dates: ""
       },
       {
-        id: "3", name: "Shoping List3", created: "April 20, 2021", category: "Task",
+        id: "3", contnentName: "Shoping List3", created: "April 20, 2021", category: "Task",
         content: "asfasfasf", dates: ""
       },
       {
-        id: "4", name: "Shoping List4", created: "April 20, 2021", category: "Idea",
+        id: "4", contnentName: "Shoping List4", created: "April 20, 2021", category: "Idea",
         content: "asfasfasf", dates: ""
       },
       {
-        id: "5", name: "Shoping List5", created: "April 20, 2021", category: "Task",
+        id: "5", contnentName: "Shoping List5", created: "April 20, 2021", category: "Task",
         content: "asfasfasf", dates: ""
       }
     ],
     archivedNotes: [],  // stores archived objects from body
-    textInputsArray: ["name", "content"],
+    textInputsArray: ["contnentName", "content"],
     selectArray: ["Task", "Random Thought", "Idea"]
-}
-
-interface IAction {
-    type: string,
-    id?: number | string,
-    note?: NoteType
 }
 
 const notesReduser = (state = initialState, action: IAction) => {
@@ -89,6 +84,9 @@ const notesReduser = (state = initialState, action: IAction) => {
                 body: [... bodyCopy]
             }
         }
+
+        default:
+            return state
     }
 }
 
