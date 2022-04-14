@@ -1,13 +1,17 @@
-import { combineReducers, createStore } from "redux";
+import { combineReducers, compose, createStore } from "redux";
 import notesReduser from "./notesReduser";
 import summaryReduser from "./summaryReduser";
 
 
-let redusers = combineReducers({
+let reducers = combineReducers({
     notesTable: notesReduser,
     summaryTable: summaryReduser
 });
 
-let store = createStore(redusers);
+const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(
+    reducers, /* preloadedState, */
+    composeEnhancers()
+  );
 
 export default store;

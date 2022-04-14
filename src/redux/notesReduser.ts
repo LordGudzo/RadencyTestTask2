@@ -38,7 +38,7 @@ let initialState = {
     archivedNotes: [],  // stores archived objects from body
     textInputsArray: ["contnentName", "content"],
     selectArray: ["Task", "Random Thought", "Idea"],
-    editForm: "",
+    editForm: "0",
     isAddMode: false
 }
 

@@ -26,4 +26,36 @@
  td {
    padding: 10px;
    text-align: left;
- }
+ } 
+  
+.td_icons {
+  filter: invert(50%); 
+}
+
+.th_icon input {
+  filter: invert(100%);    
+}
+
+.th_icon span {
+  color: white   
+}
+
+.th_icon a {    
+  display: flex;
+  justify-content: center;
+  align-items: center;    
+  cursor: pointer;
+}
+
+.addBtn, .sendFormBtn {
+  align-self: end;
+  width: 100px;
+  height: 20px;
+  background-color: gray;
+  color: white;
+  cursor: pointer;
+}
+
+td img {
+  width: 25px;
+}
