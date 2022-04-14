@@ -1,17 +1,20 @@
-import { NoteType, IAction } from "../types/types";
+import { NoteType, INoteAction } from "../types/types";
 
 
 const DELETE = "DELETE";
 const ARCHIV = "ARCHIV";
 const UNARCHIV = "UNARCHIV";
 const ADD_NOTE = "ADD_NOTE";
-const EDIT_NOTE = "EDIT_NOTE";
+const SHOW_EDIT_FORM = "SHOW_EDIT_FORM";
+const SEND_EDIT_NOTE = "SEND_EDIT_NOTE";
+const SHOW_ADD_NOTE_FORM = "SHOW_ADD_NOTE_FORM";
+const SET_DATES = "SET_DATES"
 
 let initialState = {
     title: { contnentName: "Name", created: "Created", category: "Category", content: "Content", dates: "Dates" },
     body: [
       {
-        id: "1", contnentName: "Shoping List1", category: "Task", created: "April 20, 2021",
+        id: "1", contnentName: "Shoping List1", created: "April 20, 2021", category: "Task",
         content: "3.5/2022", dates: ""
       },
       {
@@ -34,10 +37,12 @@ let initialState = {
     ],
     archivedNotes: [],  // stores archived objects from body
     textInputsArray: ["contnentName", "content"],
-    selectArray: ["Task", "Random Thought", "Idea"]
+    selectArray: ["Task", "Random Thought", "Idea"],
+    editForm: "",
+    isAddMode: false
 }
 
-const notesReduser = (state = initialState, action: IAction) => {
+const notesReduser = (state = initialState, action: INoteAction) => {
     switch (action.type) {
         case DELETE: {
             return {
@@ -65,23 +70,54 @@ const notesReduser = (state = initialState, action: IAction) => {
             }
         }
 
-        case ADD_NOTE: {
+        case SHOW_ADD_NOTE_FORM: {
             return {
                 ...state,
-                body: [...state.body, action.note]
+                isAddMode: true
             }
         }
 
-        case EDIT_NOTE: {
+        case ADD_NOTE: {
+            return {
+                ...state,
+                body: [...state.body, action.note],
+                isAddMode: false
+            }
+        }
+
+        case SHOW_EDIT_FORM: {
+            return {
+                ...state,
+                editForm: action.id
+            }
+        }
+
+        case SEND_EDIT_NOTE: {            
             let bodyCopy = state.body.map((e) => {
                 if (e.id === action.id) {
                     return action.note;
                 }
                 return e;
             })
+
+            state.editForm = "0"
             return {
                 ...state,
                 body: [... bodyCopy]
+            }
+        }
+
+        case SET_DATES: {
+            return {
+                ...state,
+                body: state.body.map((e) => {
+                    if (e.id === action.id) {
+                        if (action.datesContent === undefined) action.datesContent = ""
+                        e.dates = action.datesContent
+                    }
+
+                    return e;
+                })
             }
         }
 
@@ -90,11 +126,15 @@ const notesReduser = (state = initialState, action: IAction) => {
     }
 }
 
-export const deleteNoteAC = (id: number | string) => ({ type: DELETE, id });
-export const archivNoteAC = (id: number | string) => ({ type: ARCHIV, id });
-export const unarchivNoteAC = (id: number | string) => ({ type: UNARCHIV, id });
-export const addNoteAC = (note: NoteType) => ({ type: ADD_NOTE, note });
-export const editNoteAC = (note: NoteType, id: number | string) => ({ type: EDIT_NOTE, note, id });
+export const deleteNote = (id: number | string) => ({ type: DELETE, id });
+export const archivNote = (id: number | string) => ({ type: ARCHIV, id });
+export const unarchivNote = (id: number | string) => ({ type: UNARCHIV, id });
+export const showAddNoteForm = () => ({ type: SHOW_ADD_NOTE_FORM});
+export const addNote = (note: NoteType) => ({ type: ADD_NOTE, note });
+export const showEditForm = (id: number | string) => ({ type: SHOW_EDIT_FORM, id });
+export const sendEditNote = (note: NoteType, id: number | string) => ({ type: SEND_EDIT_NOTE, note, id });
+export const setDates = (id: number | string, datesContent: string) => ({ type: SET_DATES, id, datesContent });
 
 
 export default notesReduser;
+

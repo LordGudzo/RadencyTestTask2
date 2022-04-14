@@ -1,5 +1,6 @@
 import React from "react";
 import { getButtonIcon } from "../GetIcons";
+import { NavLink } from 'react-router-dom';
 
 type TitleButtonType = {
     isArchiv: boolean
@@ -9,8 +10,18 @@ type TitleButtonType = {
 function TitleButton(props: TitleButtonType) {
     return (
         <th>
-            <input type="image" src={getButtonIcon("archiv")}/>
-            <span> {props.isArchiv? "back" : "Show Archive"}</span>              
+            { props.isArchiv 
+            ?   <NavLink to={"/"}> 
+                <input type="image" src={getButtonIcon("archiv")}/>
+                <span> Back </span> 
+                </NavLink>
+
+            :   <NavLink to={"/archive"}> 
+                <input type="image" src={getButtonIcon("archiv")}/>
+                <span> Show Archive </span> 
+                </NavLink>
+            }
+
         </th>
     )
 }

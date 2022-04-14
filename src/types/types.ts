@@ -1,7 +1,14 @@
-export interface IAction {
+export interface INoteAction {
     type: string,
     id?: number | string,
-    note?: NoteType
+    note?: NoteType,
+    datesContent?: string
+}
+
+export interface ISummaryAction {
+    type: string,
+    category: string,
+    amount: number
 }
 
 export type NoteType = {
@@ -34,11 +41,27 @@ export interface INoteState {
     title: TitleType,
     body: [NoteType],
     archivedNotes: [NoteType],
+    textInputsArray: [string],
+    selectArray: [string],
+    editForm: string | number,
+    isAddMode: boolean
 }
 
 export type INoteTable = {
+    notesTable: INoteState,
+    showAddNoteForm: () => void,
+    setDates: (id: number | string, datesContent: string) => void  
+}
+
+export type IArchiveTable = {
     notesTable: INoteState
 }
+
+export type ISendFormContainer = {
+    notesTable: INoteState
+}
+
+
 
 export type TableTitleType = {
     titleState: TitleType | ISummaryTitle
@@ -49,7 +72,8 @@ export type TableTitleType = {
 export type TableBodyType = {
     bodyState: [NoteType] | [SummaryBodyType]
     isSummary: boolean,
-    isArchiv: boolean
+    isArchiv: boolean,
+    editForm?: string | number    
 }
 
 export interface ISummaryState {
@@ -71,5 +95,8 @@ export type SummaryBodyType = {
 }
 
 export type SummaryTableType = {
-    summaryTable: ISummaryState
+    summaryTable: ISummaryState,
+    noteTable: INoteState,
+    setActiveCount: (category: string, amount: number) => void
+    setArchiveCount: (category: string, amount: number) => void
 }
