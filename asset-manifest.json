@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/RadencyTestTask2/static/css/main.4482676e.css",
-    "main.js": "/RadencyTestTask2/static/js/main.dcd27306.js",
+    "main.js": "/RadencyTestTask2/static/js/main.5de803e4.js",
     "index.html": "/RadencyTestTask2/index.html",
     "main.4482676e.css.map": "/RadencyTestTask2/static/css/main.4482676e.css.map",
-    "main.dcd27306.js.map": "/RadencyTestTask2/static/js/main.dcd27306.js.map"
+    "main.5de803e4.js.map": "/RadencyTestTask2/static/js/main.5de803e4.js.map"
   },
   "entrypoints": [
     "static/css/main.4482676e.css",
-    "static/js/main.dcd27306.js"
+    "static/js/main.5de803e4.js"
   ]
 }
